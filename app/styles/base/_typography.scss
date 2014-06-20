@@ -41,3 +41,20 @@ a {
 	font-size: 0.75em;
 	line-height: 2em;
 }
+
+.t_message {
+	border-radius: 0.5em;
+	color: white;
+	display: none;
+	padding: 2em;
+}
+
+.t_message-error {
+	background-color: $c_error;
+	display: block;
+}
+
+.t_message-success {
+	background-color: $c_success;
+	display: block;
+}

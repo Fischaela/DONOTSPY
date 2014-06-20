@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css styles/vendor.css -->
+    <!-- build:css(./) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/normalize-css/normalize.css" />
     <!-- endbower -->
@@ -22,9 +22,7 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-
-      <div ng-view=""></div>
-
+      <div ng-view></div>
     </div>
 
     <footer class="m_footer">
@@ -32,7 +30,7 @@
         <ul>
           <li><a href="https://netzpolitik.org/2014/deutschland-akte-wir-praesentieren-die-auslaendischen-domains-die-nicht-ueberwacht-werden/">Mehr Informationen</a></li>
           <li class="t_small">Dank an <a href="http://rz.koepke.net/2014/06/19/eine-mail-an-den-bnd/">rz.koepke.net</a> für die Inspiration zum Anschreiben.</li>
-          <li class="t_small">Impressum: Geil,Danke! GmbH, Fischerinsel 4, 10179 Berlin</li>
+          <li class="t_small">Impressum: Michaela Lehr, Richard Brammer, Fischerinsel 4, 10179 Berlin</li>
         </ul>
       </article>
     </footer>
@@ -42,21 +40,16 @@
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
+    <!-- build:js(./) scripts/vendor.js -->
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

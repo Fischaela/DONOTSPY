@@ -14,4 +14,14 @@
 		background-color: white;
 		color: $c_main;
 	}
+
+	&:disabled {
+		border: 4px solid $c_main-light;
+		color: $c_main-light;
+
+		&:hover,
+		&:active {
+			background-color: transparent;
+		}
+	}
 }

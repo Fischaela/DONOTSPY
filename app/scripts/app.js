@@ -10,11 +10,8 @@
  */
 angular
   .module('donotspyApp', [
-    'ngAnimate',
-    'ngCookies',
     'ngResource',
     'ngRoute',
-    'ngSanitize',
     'ngTouch'
   ])
   .config(function ($routeProvider) {

@@ -6,31 +6,35 @@
     <a href="https://netzpolitik.org/">netzpolitik.org</a> hat via E-Mail an <a href="mailto:zentrale@bundesnachrichtendienst.de">zentrale@bundesnachrichtendienst.de</a> angefragt, ob auch sie auf die Liste der nicht-illegal-überwachten Domains Personen zu gelangen. Wer selbst einen Server betreibt und als deutscher Staatsbürger nicht illegal überwacht werden möchte, kann dieses Formular verwenden, um selbst eine E-Mail an den Bundesnachrichtendienst zu schreiben.
   </p>
 </article>
-<form class="l_centered">
+<form id="form" name="form" class="l_centered" method="post" ng-submit="processForm()">
   <!-- TODO: Include form validation and states -->
-  <label for="first_name">Vorname</label>
-  <input type="text" name="first_name" value="" required>
-  <label for="last_name">Nachname</label>
-  <input type="text" name="last_name" value="" required>
+  <label for="name">Vorname Nachname</label>
+  <input type="text" name="name" ng-model="formData.name" placeholder="Vorname Nachname" required>
   <label for="email_address">E-Mail-Adresse</label>
-  <input type="email" name="email_address" value="" required>
+  <input type="email" name="email_address" ng-model="formData.mailaddress" placeholder="mail@muster.net" required>
   <label for="domain">Domain</label>
-  <input type="url" name="domain" value="" required>
+  <input type="text" name="domain" ng-model="formData.domain" placeholder="betroffene Domain" required>
   <label for="email_subject">Betreff</label>
-  <input type="email" name="email_subject" value="Überwachung meines Internetverkehrs" required>
+  <input type="text" name="email_subject" ng-model="formData.mailsubject" value="{{ formData.mailsubject }}" required>
   <label for="email_text">Anschreiben</label>
-  <textarea name="email_text" rows="18" autocorrect="false">
+  <textarea id="emailtext" name="email_text" rows="19" required>
 Sehr geehrte Damen und Herren,
 
 den Medien musste ich entnehmen, dass Sie als Merkmal für “nicht zu überwachenden Internetverkehr deutscher Staatsbürger” allein die Verwendung der Top-Level-Domain “.de” definieren. Dies nutzt mir, als in Deutschland lebender Bundesdeutscher Staatsbürger und Nutzer einer “.net”-Topleveldomain, leider nichts. Aufgrund ihres definierten Aufgabenbereich (Auslandsaufklärung) gehört die Überwachung deutscher Staatsbürger (also auch mir) NICHT zu ihrem Aufgabenbereich.
 
-Als Besitzer der Domain {{  }} (von Ihnen über die DENIC eG prüfbar), möchte ich Sie also auffordern, den von und zu meiner privat betriebenen Domain laufenden Internetverkehr aus ihren Überwachungsmaßnahmen auszuklammern. Ich bitte Sie mir den Eingang dieser Aufforderung sowie die Umsetzung der Maßnahmen schriftlich zu bestätigen.
+Als Besitzer der Domain {{ formData.domain }}, möchte ich Sie also auffordern, den von und zu meiner privat betriebenen Domain laufenden Internetverkehr aus ihren Überwachungsmaßnahmen auszuklammern. Ich bitte Sie mir den Eingang dieser Aufforderung sowie die Umsetzung der Maßnahmen schriftlich zu bestätigen.
 
 Mit freundlichen Grüßen
-{{ Vorname Nachname }}
-{{ E-Mail-Adresse }}
+{{ formData.name }}
+{{ formData.mailaddress }}
+{{ formData.domain }}
   </textarea>
-  <input type="checkbox" name="privacy_statement" value="">
+  <input type="checkbox" name="privacy_statement" value="" required>
   <label for="privacy_statement" required>Ich bin mit der <a href="#/datenschutz">Datenschutzerklärung</a> einverstanden.</label>
-  <button class="btn" type="submit" name="button">Senden</button>
+  <button class="btn" type="submit" name="button" ng-disabled="form.$invalid">Senden</button>
 </form>
+<article class="l_centered">
+  <p class="t_message {{ message.class }}">
+    {{ message.text }}
+  </p>
+</article>
