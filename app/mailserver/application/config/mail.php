@@ -31,14 +31,34 @@
  */
 $config['mail_validation_rules'] = array(
   array(
-    'field'   => 'subject', 
-    'label'   => 'Username', 
+    'field'   => 'name', 
+    'label'   => 'Name', 
     'rules'   => 'required'
   ),
   array(
-    'field'   => 'email', 
+    'field'   => 'mailaddress', 
     'label'   => 'Email', 
     'rules'   => 'required|valid_email'
+  ),
+  array(
+    'field'   => 'domain',
+    'label'   => 'Domain',
+    'rules'   => 'required'
+  ),
+  array(
+    'field'   => 'mailsubject',
+    'label'   => 'Subject',
+    'rules'   => 'required'
+  ),
+  array(
+    'field'   => 'emailtext',
+    'label'   => 'Message',
+    'rules'   => 'required'
+  ),
+  array(
+    'field'   => 'privacy',
+    'label'   => 'Privacy Statement',
+    'rules'   => 'required'
   )
 );
 

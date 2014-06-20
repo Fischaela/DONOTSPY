@@ -33,9 +33,9 @@ class Mail extends CI_Controller {
 			if ($isValid) {
 				$this->load->model('Message');
 				$isSaved = $this->Message->create(
-					$this->input->post('email'), 
-					$this->input->post('subject'),
-					$this->input->post('text')
+					$this->input->post('mailaddress'), 
+					$this->input->post('mailsubject'),
+					$this->input->post('emailtext')
 				);
 			}
 

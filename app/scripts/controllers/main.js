@@ -33,7 +33,7 @@ angular.module('donotspyApp')
 
       $http({
         method: 'POST',
-        url: '/mailserver',
+        url: 'mailserver/index.php/mail',
         data: $scope.formData
       })
       .success(function () {
