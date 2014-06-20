@@ -1,0 +1,20 @@
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	background-color: $c_main;
+	width: 100%;
+	min-height: 100%;
+}
+
+body {
+	padding: 1em 2em;
+}
+
+.l_centered {
+	margin: 4rem auto;
+	width: 100%;
+	max-width: 43.75em;
+}
