@@ -8,8 +8,22 @@
  * Controller of the donotspyApp
  */
 angular.module('donotspyApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.name = '[Vorname Nachname]';
-    $scope.email = '[E-Mail-Adresse]';
-    $scope.domain = '[Betroffene Domain]';
+  .controller('MainCtrl', function ($scope, $http) {
+    $scope.formData = {
+      'mailsubject': 'Überwachung meines Internetverkehrs'
+    };
+    $scope.processForm = function () {
+      $scope.formData.emailtext = angular.element(document.querySelector('#emailtext')).text();
+      $http({
+        method: 'POST',
+        url: '/someUrl',
+        data: $scope.formData
+      })
+      .success(function (data) {
+        console.log(data);
+      })
+      .error(function (data) {
+        console.log(data);
+      });
+    };
   });
