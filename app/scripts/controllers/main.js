@@ -9,21 +9,42 @@
  */
 angular.module('donotspyApp')
   .controller('MainCtrl', function ($scope, $http) {
-    $scope.formData = {
-      'mailsubject': 'Überwachung meines Internetverkehrs'
+
+    var init = function () {
+      $scope.formData = {
+        name: '',
+        mailaddress: '',
+        domain: '',
+        mailsubject: 'Überwachung meines Internetverkehrs'
+      };
+      document.getElementById('form').reset();
     };
+
+    init();
+
+    $scope.message = {
+      text: '',
+      class: ''
+    };
+
     $scope.processForm = function () {
+
       $scope.formData.emailtext = angular.element(document.querySelector('#emailtext')).text();
+
       $http({
         method: 'POST',
-        url: '/someUrl',
+        url: '/mailserver',
         data: $scope.formData
       })
-      .success(function (data) {
-        console.log(data);
+      .success(function () {
+        $scope.message.text = 'E-Mail mit Verifizierungslink wurde erfolgreich versendet.';
+        $scope.message.class = 't_message-success';
+        init();
       })
-      .error(function (data) {
-        console.log(data);
+      .error(function () {
+        $scope.message.text = 'Entschuldigung, ein Fehler ist aufgetreten. Bitte versuchen Sie es noch einmal.';
+        $scope.message.class = 't_message-error';
       });
     };
+
   });
