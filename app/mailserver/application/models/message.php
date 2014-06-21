@@ -59,7 +59,7 @@ class Message extends CI_Model {
     $this->email->from($mail_admin);
     $this->email->to($this->sender);
     $this->email->subject('Verifizieren Sie Ihre E-Mail-Adresse');
-    $this->email->message($message . "\r\n\r\n" . $url . "\r\n\r\n" . $this->$text);
+    $this->email->message($message . "\r\n\r\n" . $url . "\r\n\r\n" . $this->text);
     
     return $this->email->send();
 
