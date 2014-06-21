@@ -33,11 +33,11 @@ angular.module('donotspyApp')
 
       $http({
         method: 'POST',
-        url: '/mailserver',
+        url: 'mailserver/index.php/mail',
         data: $scope.formData
       })
       .success(function () {
-        $scope.message.text = 'E-Mail mit Verifizierungslink wurde erfolgreich versendet.';
+        $scope.message.text = 'E-Mail mit Verifizierungslink wurde erfolgreich versendet. Bitte sehen Sie auch im Spam-Ordner nach der E-Mail.';
         $scope.message.class = 't_message-success';
         init();
       })

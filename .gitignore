@@ -3,3 +3,5 @@ dist
 .tmp
 .sass-cache
 bower_components
+app/mailserver/application/config/development/database.php
+app/mailserver/application/config/production/database.php
