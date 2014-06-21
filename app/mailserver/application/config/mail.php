@@ -7,7 +7,7 @@
  | Which email address will receive the mail after verification
  |
  */ 
- $config['mail_recipient'] =  'support@geildanke.com';
+ $config['mail_recipient'] =  'mail@richardbrammer.de';
  
 
 /*
@@ -18,7 +18,7 @@
  | Set the field name for the subject
  |
  */ 
- $config['mail_admin'] = 'no-reply@donotspyme.de';
+ $config['mail_admin'] = 'admin@ueberwacht-mich-nicht.de';
 
 
 /*
@@ -105,6 +105,8 @@ $config['mail_message_fields'] = array(
 $config['mail_verify_address'] = true;
 
 
+
+
 /*
  |--------------------------------------------------------------------------
  | Verification Messages
@@ -116,6 +118,7 @@ $config['mail_verify_address'] = true;
  */
 $config['mail_verify_success'] = 'Ihre E-Mail wurde erfolgreich verschickt.';
 $config['mail_verify_fail'] = 'Ihre E-Mail konnte nicht gesendet werden. Ist der Link gültig?';
+$config['mail_verify_mailtext'] = 'Bitte verifizieren Sie Ihre E-Mail-Adresse, indem Sie auf den unten stehenden Link klicken. Wenn nicht, wird Ihre Nachricht an den Bundesnachrichtendienst nicht versendet.';
 
 
 

@@ -48,17 +48,18 @@ class Message extends CI_Model {
    * @return [Boolean] True, if mail was dispatched
    */
   public function send_verification_mail () {
-    
+
     $this->load->helper('url');
     $this->load->library('email');
     
     $mail_admin = $this->config->item('mail_admin');
     $url = site_url('mail/verify/' . $this->verify_token);
+    $message = $this->config->item('mail_verify_mailtext');
 
     $this->email->from($mail_admin);
     $this->email->to($this->sender);
     $this->email->subject('Verifizieren Sie Ihre E-Mail-Adresse');
-    $this->email->message($url);
+    $this->email->message($message . "\r\n\r\n" . $url . "\r\n\r\n" . $this->$text);
     
     return $this->email->send();
 
