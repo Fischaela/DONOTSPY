@@ -24,6 +24,7 @@ class Mail extends CI_Controller {
 			$_POST = json_decode($postdata, true);
 			
 			/* VALIDATE FORM DATA */
+			$this->load->database(); // Database needed for checking unique email
 			$this->load->library('form_validation');
 			$this->config->load('mail');
 			$this->form_validation->set_rules($this->config->item('mail_validation_rules'));
