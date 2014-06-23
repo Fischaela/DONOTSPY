@@ -1,7 +1,8 @@
 node_modules
-dist
 .tmp
 .sass-cache
 bower_components
-app/mailserver/application/config/development/database.php
-app/mailserver/application/config/production/database.php
+dist/application/config/development/database.php
+dist/application/config/production/database.php
+dist/application/config/development/encryption.php
+dist/application/config/production/encryption.php
