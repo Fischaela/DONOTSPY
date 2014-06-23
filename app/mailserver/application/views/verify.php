@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
-	<p><?php echo $message; ?></p>
+  <section class="l_centered">
+	 <p><?php echo $message; ?></p>
+  </section>
 </body>
 </html>
