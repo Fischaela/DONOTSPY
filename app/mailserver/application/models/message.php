@@ -37,7 +37,7 @@ class Message extends CI_Model {
     $this->subject = $subject;
     $this->text = $text;
     $this->time_created = time();
-    $this->verify_token = uniqid();
+    $this->verify_token = strtr(base64_encode(openssl_random_pseudo_bytes(16)), "+/=", "XXX");
 
     return $this->db->insert('messages', $this);
 
