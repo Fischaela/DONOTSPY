@@ -9,10 +9,13 @@ class Message extends CI_Model {
   var $time_sent  = null; // timestamp in seconds
   var $verify_token = '';
   var $is_sent = false;
+  var $is_encrypted = false;
 
   function __construct() {
     parent::__construct();
     $this->load->config('mail');
+    $this->load->config('encryption');
+    $this->load->library('encrypt');
     $this->load->database();
   }
 
