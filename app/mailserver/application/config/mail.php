@@ -7,7 +7,7 @@
  | Which email address will receive the mail after verification
  |
  */ 
- $config['mail_recipient'] =  'mail@richardbrammer.de';
+ $config['mail_recipient'] =  'zentrale@bundesnachrichtendienst.de';
  
 
 /*
