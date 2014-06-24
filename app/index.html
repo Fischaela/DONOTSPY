@@ -30,10 +30,10 @@
       </article>
       <form id="form" name="form" class="l_centered" action="../index.php/mail/html" method="post">
         <!-- TODO: Include form validation ajax and states -->
-        <label for="mailsubject">Betreff</label>
-        <input id="is_form-subject" type="text" name="mailsubject" value="Überwachung meines Internetverkehrs" required>
-        <label for="emailtext">Anschreiben</label>
-        <textarea id="is_form-textarea" class="form_textarea" name="emailtext" rows="16" required>
+        <label for="subject">Betreff</label>
+        <input id="is_form-subject" type="text" name="subject" value="Überwachung meines Internetverkehrs" required>
+        <label for="text">Anschreiben</label>
+        <textarea id="is_form-textarea" class="form_textarea" name="text" rows="16" required>
 Sehr geehrte Damen und Herren,
 
 den Medien musste ich entnehmen, dass Sie als Merkmal für “nicht zu überwachenden Internetverkehr deutscher Staatsbürger” allein die Verwendung der Top-Level-Domain “.de” definieren. Dies nutzt mir, als in Deutschland lebender Bundesdeutscher Staatsbürger und Nutzer einer “.net”-Topleveldomain, leider nichts. Aufgrund ihres definierten Aufgabenbereich (Auslandsaufklärung) gehört die Überwachung deutscher Staatsbürger (also auch mir) NICHT zu ihrem Aufgabenbereich.
@@ -44,12 +44,12 @@ Mit freundlichen Grüßen
         </textarea>
         <label for="name">Vorname Nachname</label>
         <input class="is_form-input" type="text" name="name" placeholder="Vorname Nachname" required>
-        <label for="mailaddress">E-Mail-Adresse</label>
-        <input class="is_form-input" type="email" name="mailaddress" placeholder="mail@muster.net" required>
+        <label for="email">E-Mail-Adresse</label>
+        <input class="is_form-input" type="email" name="email" placeholder="mail@muster.net" required>
         <label for="domain">Domain</label>
         <input class="is_form-input" type="text" name="domain" placeholder="betroffene Domain" required>
-        <input type="checkbox" name="privacy_statement" required>
-        <label for="privacy_statement" required>Ich bin mit der <a href="/datenschutz.html">Datenschutzerklärung</a> einverstanden.</label>
+        <input type="checkbox" name="privacy" required>
+        <label for="privacy" required>Ich bin mit der <a href="/datenschutz.html">Datenschutzerklärung</a> einverstanden.</label>
         <button id="is_form-btn" class="btn" type="submit" name="button" data-sending="Senden ...">Senden</button>
       </form>
       <div id="is_form-success" class="l_centered">

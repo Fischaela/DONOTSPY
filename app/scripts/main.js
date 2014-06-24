@@ -8,10 +8,11 @@ $(document).on('ready', function () {
 	$('#form').on('submit', function (event) {
 
 		var $button = $('#is_form-btn'), // the submit button
-      request = {}; // the data to be sent via ajax an read by $request by mailserver
+      request = ''; // the data to be sent via ajax an read by $request by mailserver
 
 		// collect the data from every field
-    request = $(this).serializeArray();
+    request = $(this).serialize();
+		console.log(request);
 
 		// prevent change of http location because of form action
     event.preventDefault();
@@ -21,13 +22,10 @@ $(document).on('ready', function () {
 
 		$.ajax({
       type: 'POST',
-      data: JSON.stringify(request),
-      dataType: 'json',
-      processData: false,
-      contentType: 'application/json; charset=UTF-8',
+      data: request,
       url: $(this).attr('action'),
       success: function () {
-        $('#id_form-success').show();
+        $('#is_form-success').show();
         $('#form').hide();
       },
       error: function () {
