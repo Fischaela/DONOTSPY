@@ -106,6 +106,11 @@ class Mail extends CI_Controller {
 		header('Access-Control-Allow-Methods: POST, OPTIONS');
 	}
 
+	public function email_check ($email) {
+		$this->load->model('Message');
+		return $this->Message->check_unique_email($email);
+	}
+
 }
 
 /* End of file mail.php */

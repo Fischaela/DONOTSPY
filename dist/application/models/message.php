@@ -94,6 +94,27 @@ class Message extends CI_Model {
   }
 
   /**
+   * Checks, if the paramter $email does already exist in the encrypted field 'sender' of table 'messages' 
+   * returns false, if $email
+   * @param  [String] $email Email address that should be saved as sender
+   * @return [Boolean]       True if unique, false if value already exists
+   */
+  public function check_unique_email ($email) {
+    $unique = true;
+
+    $this->db->select('sender');
+    $query = $this->db->get('messages');
+
+    foreach ($query->result() as $row) {
+      if ($this->encrypt->decode($row->sender) === $email) {
+        $unique = false;
+      }
+    }
+
+    return $unique;
+  }
+
+  /**
    * Sends the Message
    * @return [Boolean] True, if the Message was sent.
    */

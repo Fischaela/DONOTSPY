@@ -38,7 +38,7 @@ $config['mail_validation_rules'] = array(
   array(
     'field'   => 'email', 
     'label'   => 'Email', 
-    'rules'   => 'required|valid_email|is_unique[messages.sender]'
+    'rules'   => 'required|valid_email|callback_email_check'
   ),
   array(
     'field'   => 'domain',
