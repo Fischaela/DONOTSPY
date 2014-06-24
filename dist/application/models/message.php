@@ -9,10 +9,13 @@ class Message extends CI_Model {
   var $time_sent  = null; // timestamp in seconds
   var $verify_token = '';
   var $is_sent = false;
+  var $is_encrypted = false;
 
   function __construct() {
     parent::__construct();
     $this->load->config('mail');
+    $this->load->config('encryption');
+    $this->load->library('encrypt');
     $this->load->database();
   }
 
@@ -28,14 +31,16 @@ class Message extends CI_Model {
     
     /* recipient is optional */
     if ($recipient === null) {
-      $this->recipient = $this->config->item('mail_recipient');
-    } else {
-      $this->recipient = $recipient;
-    }
+      $recipient = $this->config->item('mail_recipient');
+    } 
 
-    $this->sender = $sender;
-    $this->subject = $subject;
-    $this->text = $text;
+    /* encrypt message and metadata */
+    $this->is_encrypted = true;
+    $this->recipient =  $this->encrypt->encode($recipient);
+    $this->sender =     $this->encrypt->encode($sender);
+    $this->subject =    $this->encrypt->encode($subject);
+    $this->text =       $this->encrypt->encode($text);   
+    
     $this->time_created = time();
     $this->verify_token = strtr(base64_encode(openssl_random_pseudo_bytes(16)), "+/=", "XXX");
 
@@ -55,11 +60,13 @@ class Message extends CI_Model {
     $mail_admin = $this->config->item('mail_admin');
     $url = site_url('mail/verify/' . $this->verify_token);
     $message = $this->config->item('mail_verify_mailtext');
+    $text = $this->encrypt->decode($this->text);
+    $to = $this->encrypt->decode($this->sender);
 
     $this->email->from($mail_admin);
-    $this->email->to($this->sender);
+    $this->email->to($to);
     $this->email->subject('Verifizieren Sie Ihre E-Mail-Adresse');
-    $this->email->message($message . "\r\n\r\n" . $url . "\r\n\r\n" . $this->text);
+    $this->email->message($message . "\r\n\r\n" . $url . "\r\n\r\n" . $text);
     
     return $this->email->send();
 
@@ -79,6 +86,7 @@ class Message extends CI_Model {
       $this->sender = $row->sender;
       $this->subject = $row->subject;
       $this->text = $row->text;
+      $this->is_encrypted = $row->is_encrypted;
       $this->verify_token = $row->verify_token;
       if ($this->_send()) {
         return true;
@@ -88,20 +96,57 @@ class Message extends CI_Model {
   }
 
   /**
+   * Checks, if the paramter $email does already exist in the encrypted field 'sender' of table 'messages' 
+   * returns false, if $email
+   * @param  [String] $email Email address that should be saved as sender
+   * @return [Boolean]       True if unique, false if value already exists
+   */
+  public function check_unique_email ($email) {
+    $unique = true;
+
+    $this->db->select('sender');
+    $query = $this->db->get('messages');
+
+    foreach ($query->result() as $row) {
+      if ($this->encrypt->decode($row->sender) === $email) {
+        $unique = false;
+      }
+    }
+
+    return $unique;
+  }
+
+  /**
    * Sends the Message
    * @return [Boolean] True, if the Message was sent.
    */
   private function _send () {
 
     $this->load->library('email');
-    $this->email->from($this->sender);
-    $this->email->to($this->recipient);
-    $this->email->subject($this->subject);
-    $this->email->message($this->text);
+    
+    /* decode, if message was encrypted */
+    if ($this->is_encrypted) {
+      $from     = $this->encrypt->decode($this->sender);
+      $to       = $this->encrypt->decode($this->recipient);
+      $subject  = $this->encrypt->decode($this->subject);
+      $message  = $this->encrypt->decode($this->text);
+    } else {
+      $from =     $this->sender;
+      $to =       $this->recipient;
+      $subject =  $this->subject;
+      $message =  $this->message;
+    }
+
+    /* prepare mail */
+    $this->email->from($from);
+    $this->email->to($to);
+    $this->email->subject($subject);
+    $this->email->message($message);
 
     if ($this->email->send()) {
       $this->db->where('verify_token', $this->verify_token);
-      $this->db->update('messages', array('time_sent' => time(), 'is_sent' => true));
+      // update time and delete subject + message
+      $this->db->update('messages', array('time_sent' => time(), 'is_sent' => true, 'text' => '', 'subject' => ''));
       return true;
     } else {
       return false;
