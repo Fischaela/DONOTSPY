@@ -3,7 +3,6 @@
 $(document).on('ready', function () {
 
 	'use strict';
-	$.post('../index.php/mail/json', $('#form').serialize ());
 
 	$('#form').on('submit', function (event) {
 
@@ -29,9 +28,9 @@ $(document).on('ready', function () {
         $('#is_form-success').show().find('.t_message').text(data.message);
         $('#form').hide();
       },
-      error: function (data) {
-        $('#is_form-error').show().find('.t_message').text(data.message);
-        $('#form').hide();
+      error: function () {
+        $('#is_form-error').show().find('.t_message').text('Die Formulardaten sind ungültig, unvollständig oder ein Duplikat.');
+        $button.prop('disabled', false).text('Senden');
       }
     });
 
