@@ -27,20 +27,33 @@ class Mail extends CI_Controller {
 
 			/* IF VALID CREATE MESSAGE */
 			if ($isValid) {
-				$data['respond'] = 'Formulardaten g&uuml;ltig, aber die Nachticht wurde nicht gespeichert und keine E-Mail gesendet.';
+				$data['respond'] = 'Formulardaten g&uuml;ltig, aber die Nachricht wurde nicht gespeichert und keine E-Mail gesendet.';
 				$data['status'] = 500;
+				
+				// format message
 				$this->load->model('Message');
+				$this->load->model('Form');
+				$fields = array(
+					'text' => $this->input->post('text'),
+					'name' => $this->input->post('name'),
+					'email' => $this->input->post('email'), 
+					'domain' => $this->input->post('domain')
+				);
+				$message = $this->Form->create_message_body($fields);
+				
+				// Save message to database
 				$isSaved = $this->Message->create(
 					$this->input->post('email'), 
 					$this->input->post('subject'),
-					$this->input->post('text')
+					$message
 				);
 			}
 
 
+			/* SEND VERIFICATION MAIL */
 			if ($isValid && $isSaved) {
 				$data['respond'] = 'Nachricht gespeichert, aber es wurde keine E-Mail zur Verfikation gesendet. Bitte wenden Sie sich an admin@ueberwacht-mich-nicht.de';
-				/* SEND VERIFICATION MAIL */
+				
 				if ($this->Message->send_verification_mail()) {
 					$data['respond'] = 'Nachricht gespeichert. Sie wird erst versendet, wenn Sie Ihre E-Mail-Adresse verifizieren. Bitte klicken Sie auf den Link in der E-Mail, die wir Ihnen gesendet haben.';
 					$data['success'] = true;
