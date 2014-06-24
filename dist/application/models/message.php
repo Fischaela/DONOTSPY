@@ -5,7 +5,6 @@ class Message extends CI_Model {
   var $sender     = '';
   var $subject    = '';
   var $text       = '';
-  var $domain     = '';
   var $time_created = null; // timestamp in seconds
   var $time_sent  = null; // timestamp in seconds
   var $verify_token = '';
@@ -28,7 +27,7 @@ class Message extends CI_Model {
    * @param  [String] $recipient Email address to 
    * @return [Boolean]           True, if database insertion was successful
    */
-  public function create ($sender, $subject, $text, $domain, $recipient = null) {
+  public function create ($sender, $subject, $text, $recipient = null) {
     
     /* recipient is optional */
     if ($recipient === null) {
@@ -40,10 +39,8 @@ class Message extends CI_Model {
     $this->recipient =  $this->encrypt->encode($recipient);
     $this->sender =     $this->encrypt->encode($sender);
     $this->subject =    $this->encrypt->encode($subject);
-    $this->text =       $this->encrypt->encode($text);
+    $this->text =       $this->encrypt->encode($text);   
     
-    /* domain is not encrypted, as it has to be chechked for uniqueness */
-    $this->domain =     $domain;
     $this->time_created = time();
     $this->verify_token = strtr(base64_encode(openssl_random_pseudo_bytes(16)), "+/=", "XXX");
 
@@ -131,6 +128,7 @@ class Message extends CI_Model {
     } else {
       return false;
     }
+
   }
 
 }

@@ -43,7 +43,7 @@ $config['mail_validation_rules'] = array(
   array(
     'field'   => 'domain',
     'label'   => 'Domain',
-    'rules'   => 'required|is_unique[messages.domain]'
+    'rules'   => 'required'
   ),
   array(
     'field'   => 'subject',
