@@ -8,20 +8,15 @@ class Mail extends CI_Controller {
 	 *
 	 * Sends a verification Link E-Mail.
 	 */
-	public function index () {
+	public function create ($respondType = 'html') {
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 			$isValid = false; // is the posted content valid?
 			$isSaved = false; // is the Message saved in the Database
-			$message = ''; // construct the message
-
-			/** Read JSON from Angular */
-			/** http://stackoverflow.com/questions/15485354/angular-http-post-to-php-and-undefined
-			/** Hack: http://ellislab.com/forums/viewthread/238080/ */
-			$postdata = file_get_contents("php://input");
-			/* Save JSON data in $_POST for CodeIgniter form_validation */
-			$_POST = json_decode($postdata, true);
+			$data['respond'] = 'Formulardaten ung&uuml;ltig.'; // construct the message
+			$data['success'] = false;
+			$data['status'] = 400;
 			
 			/* VALIDATE FORM DATA */
 			$this->load->database(); // Database needed for checking unique email
@@ -32,25 +27,37 @@ class Mail extends CI_Controller {
 
 			/* IF VALID CREATE MESSAGE */
 			if ($isValid) {
+				$data['respond'] = 'Formulardaten g&uuml;ltig, aber die Nachticht wurde nicht gespeichert und keine E-Mail gesendet.';
+				$data['status'] = 500;
 				$this->load->model('Message');
 				$isSaved = $this->Message->create(
-					$this->input->post('mailaddress'), 
-					$this->input->post('mailsubject'),
-					$this->input->post('emailtext')
+					$this->input->post('email'), 
+					$this->input->post('subject'),
+					$this->input->post('text')
 				);
 			}
 
-			$this->_output_header();
 
 			if ($isValid && $isSaved) {
+				$data['respond'] = 'Nachricht gespeichert, aber es wurde keine E-Mail zur Verfikation gesendet. Bitte wenden Sie sich an admin@ueberwacht-mich-nicht.de';
 				/* SEND VERIFICATION MAIL */
-				$this->Message->send_verification_mail();
-				
-				$this->output->set_status_header('200');
-				$this->output->set_content_type('application/json')->set_output(json_encode(array('success' => true, 'message' => 'Message saved to Database')));
-			} else {
-				$this->output->set_status_header('400');
-				$this->output->set_content_type('application/json')->set_output(json_encode(array('success' => false, 'message' => 'Formdata invalid')));
+				if ($this->Message->send_verification_mail()) {
+					$data['respond'] = 'Nachricht gespeichert. Sie wird erst versendet, wenn Sie Ihre E-Mail-Adresse verifizieren. Bitte klicken Sie auf den Link in der E-Mail, die wir Ihnen gesendet haben.';
+					$data['success'] = true;
+					$data['status'] = 200;
+				}
+			}
+
+			switch ($respondType) {
+				case 'json':
+					$this->_output_header();
+					$this->output->set_status_header($data['status']);
+					$this->output->set_content_type('application/json')->set_output(
+						json_encode(array('success' => $data['success'], 'message' => $data['respond']))
+					);
+					break;
+				default: 
+					$this->load->view('respond', $data);
 			}
 		} 
 	}

@@ -36,7 +36,7 @@ $config['mail_validation_rules'] = array(
     'rules'   => 'required'
   ),
   array(
-    'field'   => 'mailaddress', 
+    'field'   => 'email', 
     'label'   => 'Email', 
     'rules'   => 'required|valid_email|is_unique[messages.sender]'
   ),
@@ -46,12 +46,12 @@ $config['mail_validation_rules'] = array(
     'rules'   => 'required'
   ),
   array(
-    'field'   => 'mailsubject',
+    'field'   => 'subject',
     'label'   => 'Subject',
     'rules'   => 'required'
   ),
   array(
-    'field'   => 'emailtext',
+    'field'   => 'text',
     'label'   => 'Message',
     'rules'   => 'required'
   ),
@@ -86,7 +86,10 @@ $config['mail_validation_rules'] = array(
  |
  */ 
 $config['mail_message_fields'] = array(
-  'email_text' => ''
+  'text' => '',
+  'name' => '',
+  'email' => 'E-Mail: ',
+  'domain' => 'Domain: '
 );
 
 
