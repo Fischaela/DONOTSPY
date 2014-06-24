@@ -23,7 +23,8 @@ $(document).on('ready', function () {
 		$.ajax({
       type: 'POST',
       data: request,
-      url: $(this).attr('action') + '/json',
+			url: $(this).attr('action') + '/json',
+      // url: 'config.json',
       success: function (data) {
         $('#is_form-success').show().find('.t_message').text(data.message);
         $('#form').hide();
