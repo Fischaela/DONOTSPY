@@ -11,7 +11,10 @@ textarea {
 	width: 100%;
 }
 
-textarea {
-
-	padding: 1em;
+.form_textarea {
+	background-color: white;
+	color: $c_main;
+	font-size: 0.875em;
+	margin-bottom: 1em;
+	padding: 1.75em 1em 1em 1em;
 }
