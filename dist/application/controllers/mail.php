@@ -14,7 +14,7 @@ class Mail extends CI_Controller {
 
 			$isValid = false; // is the posted content valid?
 			$isSaved = false; // is the Message saved in the Database
-			$data['respond'] = 'Formulardaten ung&uuml;ltig.'; // construct the message
+			$data['respond'] = 'Formulardaten unvollständig, ungültig oder ein Duplikat.'; // construct the message
 			$data['success'] = false;
 			$data['status'] = 400;
 			
@@ -27,7 +27,7 @@ class Mail extends CI_Controller {
 
 			/* IF VALID CREATE MESSAGE */
 			if ($isValid) {
-				$data['respond'] = 'Formulardaten g&uuml;ltig, aber die Nachricht wurde nicht gespeichert und keine E-Mail gesendet.';
+				$data['respond'] = 'Formulardaten gültig, aber die Nachricht wurde nicht gespeichert und keine E-Mail gesendet.';
 				$data['status'] = 500;
 				
 				// format message
