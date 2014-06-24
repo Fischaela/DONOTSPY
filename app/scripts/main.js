@@ -23,7 +23,7 @@ $(document).on('ready', function () {
 		$.ajax({
       type: 'POST',
       data: request,
-      url: $(this).attr('action'),
+      url: $(this).attr('action') + '/json',
       success: function () {
         $('#is_form-success').show();
         $('#form').hide();
