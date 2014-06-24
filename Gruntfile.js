@@ -343,7 +343,8 @@ module.exports = function (grunt) {
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'fonts/*',
-            'mailserver/**/*'
+            'mailserver/**/*',
+            '*.json'
           ]
         }, {
           expand: true,
