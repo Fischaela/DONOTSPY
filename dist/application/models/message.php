@@ -60,11 +60,13 @@ class Message extends CI_Model {
     $mail_admin = $this->config->item('mail_admin');
     $url = site_url('mail/verify/' . $this->verify_token);
     $message = $this->config->item('mail_verify_mailtext');
+    $text = $this->encrypt->decode($this->text);
+    $to = $this->encrypt->decode($this->sender);
 
     $this->email->from($mail_admin);
-    $this->email->to($this->sender);
+    $this->email->to($to);
     $this->email->subject('Verifizieren Sie Ihre E-Mail-Adresse');
-    $this->email->message($message . "\r\n\r\n" . $url . "\r\n\r\n" . $this->text);
+    $this->email->message($message . "\r\n\r\n" . $url . "\r\n\r\n" . $text);
     
     return $this->email->send();
 
