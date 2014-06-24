@@ -72,7 +72,10 @@ class Mail extends CI_Controller {
 				default: 
 					$this->load->view('respond', $data);
 			}
-		} 
+
+		} else { // if not POST -> send 403 (forbidden)
+			$this->output->set_status_header(403);
+		}
 	}
 
 	/**
@@ -84,15 +87,15 @@ class Mail extends CI_Controller {
 		$data = array();
 		$this->load->config('mail');
 		$this->load->model('Message');
-		$success = $this->Message->verify($token);
+		$data['success'] = $this->Message->verify($token);
 
-		if ($success) {
-			$data['message'] = $this->config->item('mail_verify_success');
+		if ($data['success']) {
+			$data['respond'] = $this->config->item('mail_verify_success');
 		} else {
-			$data['message'] = $this->config->item('mail_verify_fail');
+			$data['respond'] = $this->config->item('mail_verify_fail');
 		}
 
-		$this->load->view('verify', $data);
+		$this->load->view('respond', $data);
 	}
 
 	/**
