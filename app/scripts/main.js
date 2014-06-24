@@ -24,12 +24,12 @@ $(document).on('ready', function () {
       type: 'POST',
       data: request,
       url: $(this).attr('action') + '/json',
-      success: function () {
-        $('#is_form-success').show();
+      success: function (data) {
+        $('#is_form-success').show().find('.t_message').text(data.message);
         $('#form').hide();
       },
-      error: function () {
-        $('#is_form-error').show();
+      error: function (data) {
+        $('#is_form-error').show().find('.t_message').text(data.message);
         $('#form').hide();
       }
     });
