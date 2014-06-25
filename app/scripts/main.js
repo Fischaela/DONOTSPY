@@ -26,10 +26,12 @@ $(document).on('ready', function () {
       // url: 'config.json',
       success: function (data) {
         $('#is_form-success').show().find('.t_message').text(data.message);
+				$('#is_form-error').hide();
         $('#form').hide();
       },
       error: function () {
         $('#is_form-error').show().find('.t_message').text('Die Formulardaten sind ungültig, unvollständig oder ein Duplikat.');
+				$('#is_form-success').hide();
         $button.prop('disabled', false).text('Senden');
       }
     });

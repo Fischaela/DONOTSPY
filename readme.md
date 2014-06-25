@@ -14,14 +14,23 @@ Simple mail server application with email address verification and encrypted dat
 
 ## History
 
-### Version 0.2.0
+### Version 0.2
+
+#### 0.2.1
+Hotfix
+- Link to data privacy statement
+- data privacy statement content
+
+#### 0.2.0
 
 Imroved Basic security 
 
 - basic database encryption of sender, recipient, subject and text
 - compatibility with browsers without javascript (removed angular, added jquery for progressive enhancement)
 
-### Version 0.1.0
+### Version 0.1
+
+#### 0.1.0
 
 Initial Version with
 
