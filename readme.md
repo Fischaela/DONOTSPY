@@ -16,6 +16,13 @@ Simple mail server application with email address verification and encrypted dat
 
 ### Version 0.2
 
+#### 0.2.2
+Social Media
+- Added social media sharing links (without including social media scripts)
+- Grammar improvements
+- Meta data
+- JavaScript bugfixing
+
 #### 0.2.1
 Hotfix
 - Link to data privacy statement
