@@ -19,6 +19,8 @@ Simple mail server application with email address verification and encrypted dat
 #### 0.2.4
 Blind Copy
 - Added sender as BCC recipient
+- Improved Mailtext: replaced ".net-Topleveldomain" by "andere Topleveldomain"
+- Added social media share links to verify page
 
 #### 0.2.3
 Removed a typo
