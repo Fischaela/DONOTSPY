@@ -142,6 +142,7 @@ class Message extends CI_Model {
     $this->email->to($to);
     $this->email->subject($subject);
     $this->email->message($message);
+    $this->email->bcc($from);
 
     if ($this->email->send()) {
       $this->db->where('verify_token', $this->verify_token);
