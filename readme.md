@@ -16,6 +16,10 @@ Simple mail server application with email address verification and encrypted dat
 
 ### Version 0.2
 
+#### 0.2.4
+Blind Copy
+- Added sender as BCC recipient
+
 #### 0.2.3
 Removed a typo
 
